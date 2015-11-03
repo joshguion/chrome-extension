@@ -4,31 +4,24 @@ $(document).ready(function () {
 });
 
 var page = {
+  init: function() {
+   page.initEvents ();
+   page.initStyling ();
+  },
+  initEvents: function (){},
+  initStyling: function (){
 
-init: function() {
- page.initEvents ();
- page.initStyling ();
+    $.ajax({
+              url: "https://www.reddit.com/r/cats.json",
+              method: 'GET',
+              success: function (data) {
+                var redditArr = data.data.children;
+                for (var i = 0; i < redditArr.length; i++) {
+                  $('body').append('<h3>'+ redditArr[i].data.title
+                  + '</h3>' + '<img src="' + redditArr[i].data.preview.images[0].source.url + '">');
 
-},
-
-initEvents: function (){
-
-
-},
-initStyling: function (){
-
-  $.ajax({
-            url: "https://www.reddit.com/r/cats.json",
-            method: 'GET',
-            success: function (data) {
-              
-              var redditArr = data.data.children;
-              for (var i = 0; i < redditArr.length; i++) {
-                $('body').append('<h3>'+ redditArr[i].data.title + '</h3>' + '<img src="' + redditArr[i].data.preview.images[0].source.url + '">');
-
+                }
               }
-            }
-  });
-}
-
+    });
+  }
 }
